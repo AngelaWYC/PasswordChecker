@@ -17,10 +17,12 @@ public class Password {
 	private String pswd;
 	
 	private boolean intPassed = false;
-	private boolean capPassed = false;
+	private boolean upperPassed = false;
+	private boolean lowerPassed = false;
 	
 	public boolean getIntPassed() {return this.intPassed;}
-	public boolean getCapPassed() {return this.capPassed;}
+	public boolean getUpperPassed() {return this.upperPassed;}
+	public boolean getLowerPassed() {return this.lowerPassed;}
 	
 	/** Password constructor which accepts a string.
 	 * 
@@ -42,14 +44,16 @@ public class Password {
 			c = pswd.charAt(i);
 			
 			if(checkInt(c) == true) {this.intPassed = true;}
-			if(checkCap(c) == true) {this.capPassed = true;}
+			if(checkUpper(c) == true) {this.upperPassed = true;}
+			if(checkLower(c) == true) {this.lowerPassed = true;}
 		}
 		
-		if(intPassed && capPassed == true) {
+		if(intPassed && upperPassed == true) {
 			return true;
 		}
 		return false;
 	}
+	
 	
 	/** Checks if password fulfills integer check.
 	 * 
@@ -63,13 +67,26 @@ public class Password {
 		return false;
 	}
 	
-	/** Checks if password fulfills capital letter check
+	
+	/** Checks if password fulfills capital letter check.
 	 * 
 	 * @param s the character to check if it is capital or not.
 	 * @return true or false depending on whether password contained a capital or not.
 	 */
-	public boolean checkCap(char s) {
+	public boolean checkUpper(char s) {
 		if(Character.isUpperCase(s)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/** Checks if password fulfills lower case letter check.
+	 * 
+	 * @param s the character to check if it is lower case or not.
+	 * @return true or false depending on whether password contained a lower case letter or not.
+	 */
+	public boolean checkLower(char s) {
+		if(Character.isLowerCase(s)) {
 			return true;
 		}
 		return false;
@@ -81,11 +98,10 @@ public class Password {
 	 * @return string "Password valid" or "Invalid password" depending on if checks passed/failed.
 	 */
 	public String checkAll() {
-		iterate();
-		if(this.intPassed && this.capPassed == true) {
+		if(iterate() == true) {
 			return "Password valid";
 		} else {
-			return "Invalid password";
+			return "Invalid password, try again";
 		}
 
 	}

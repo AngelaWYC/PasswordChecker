@@ -22,13 +22,28 @@ class PswdCheckerTest {
 	void testNumberPass() {
 		Password pwd1 = new Password("123hello");
 		assertEquals(pwd1.getIntPassed(), true, "Password contains an integer");
+		assertEquals(pwd1.checkAll(), "Invalid password, try again");
 	}
 	
 	
 	@Test
-	void testCap() {
+	void testUppercase() {
 		Password pwd2 = new Password("HEllo");
-		assertEquals(pwd2.getCapPassed(), true, "Password contains an integer");
+		assertEquals(pwd2.getUpperPassed(), true, "Password contains an uppercase letter");
+		assertEquals(pwd2.checkAll(), "Invalid password, try again");
+	}
+	
+	@Test
+	void testLowercase() {
+		Password pwd4 = new Password("hello");
+		assertEquals(pwd4.getLowerPassed(), true, "Password contains a lowercase letter");
+		assertEquals(pwd4.checkAll(), "Invalid password, try again");
+	}
+	
+	@Test
+	void testAll() {
+		Password pwd3 = new Password("HEllo123");
+		assertEquals(pwd3.checkAll(), "Password valid");
 	}
 	
 
