@@ -10,41 +10,83 @@ package pswdChecker;
  * https://stackoverflow.com/questions/8894971/fix-eclipse-project-setup
  * https://stackoverflow.com/questions/4388546/how-to-determine-whether-a-string-contains-an-integer
  * https://junit.org/junit4/javadoc/4.8/org/junit/Assert.html#:~:text=assertEquals,-public%20static%20void&text=expected%2C%20Object%20actual)-,Asserts%20that%20two%20objects%20are%20equal.,null%20%2C%20they%20are%20considered%20equal.
+ * https://www.techrepublic.com/videos/how-to-push-a-new-project-to-github/
  *
  */
 public class Password {
 	private String pswd;
 	
+	private boolean intPassed = false;
+	private boolean capPassed = false;
+	
+	public boolean getIntPassed() {return this.intPassed;}
+	public boolean getCapPassed() {return this.capPassed;}
+	
+	/** Password constructor which accepts a string.
+	 * 
+	 * @param password the string of which checks are run on.
+	 */
 	public Password(String password) {
 		this.pswd = password;
 		checkAll();
 	}
 	
 	
-	/** Checks if password fulfills integer check.
+	/** Iterates through the password and calls all relevant check methods.
 	 * 
-	 * @return true or false depending on whether the check succeeded
+	 * @return boolean depending on whether the password fulfilled all criteria or not.
 	 */
-	public boolean checkInt() {
+	public boolean iterate() {
 		char c;
 		for(int i = 0; i < pswd.length(); i++) {
 			c = pswd.charAt(i);
-			if(Character.isDigit(c)) {
-				return true;
-			}
+			
+			if(checkInt(c) == true) {this.intPassed = true;}
+			if(checkCap(c) == true) {this.capPassed = true;}
+		}
+		
+		if(intPassed && capPassed == true) {
+			return true;
+		}
+		return false;
+	}
+	
+	/** Checks if password fulfills integer check.
+	 * 
+	 * @param s the character to check if it is an int or not.
+	 * @return true or false depending on whether the password contained an integer or not.
+	 */
+	public boolean checkInt(char s) {
+		if(Character.isDigit(s)) {
+			return true;
+		}
+		return false;
+	}
+	
+	/** Checks if password fulfills capital letter check
+	 * 
+	 * @param s the character to check if it is capital or not.
+	 * @return true or false depending on whether password contained a capital or not.
+	 */
+	public boolean checkCap(char s) {
+		if(Character.isUpperCase(s)) {
+			return true;
 		}
 		return false;
 	}
 	
 	
-	/** Method to run all other checks
+	/** Method to run all other checks.
 	 * 
-	 * @return string "Password valid" or "Invalid password" depending on if it passed/failed checks
+	 * @return string "Password valid" or "Invalid password" depending on if checks passed/failed.
 	 */
 	public String checkAll() {
-		if(checkInt() == false) {
-			return ("Invalid password, try again"); //password does not contain at least one int
+		iterate();
+		if(this.intPassed && this.capPassed == true) {
+			return "Password valid";
+		} else {
+			return "Invalid password";
 		}
-		return("Password valid");
+
 	}
 }
