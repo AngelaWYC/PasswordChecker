@@ -17,7 +17,7 @@ import pswdChecker.Password;
  * 
  */
 class PswdCheckerTest {
-	
+
 	@Test
 	void testNumberPass() {
 		Password pwd1 = new Password("123hello");
@@ -38,6 +38,12 @@ class PswdCheckerTest {
 		Password pwd4 = new Password("hello");
 		assertEquals(pwd4.getLowerPassed(), true, "Password contains a lowercase letter");
 		assertEquals(pwd4.checkAll(), "Invalid password, try again");
+	}
+	
+	@Test
+	void testNoSpace() {
+		Password pwd5 = new Password("hello there");
+		assertEquals(pwd5.getSpacePassed(), false, "Test should not pass as contains space");
 	}
 	
 	@Test

@@ -19,10 +19,12 @@ public class Password {
 	private boolean intPassed = false;
 	private boolean upperPassed = false;
 	private boolean lowerPassed = false;
+	private boolean spacePassed = true;
 	
 	public boolean getIntPassed() {return this.intPassed;}
 	public boolean getUpperPassed() {return this.upperPassed;}
 	public boolean getLowerPassed() {return this.lowerPassed;}
+	public boolean getSpacePassed() {return this.spacePassed;}
 	
 	/** Password constructor which accepts a string.
 	 * 
@@ -35,6 +37,8 @@ public class Password {
 	
 	
 	/** Iterates through the password and calls all relevant check methods.
+	 *  if checkspace returns false (ie there is no space, do nothing)
+	 *  otherwise if checkspace returns true (there was a space; set spacePassed to false)
 	 * 
 	 * @return boolean depending on whether the password fulfilled all criteria or not.
 	 */
@@ -46,9 +50,16 @@ public class Password {
 			if(checkInt(c) == true) {this.intPassed = true;}
 			if(checkUpper(c) == true) {this.upperPassed = true;}
 			if(checkLower(c) == true) {this.lowerPassed = true;}
+			
+			if(checkSpace(c) == false) {
+				continue;
+			} else if (checkSpace(c) == true) {
+				this.spacePassed = false;
+			}
 		}
 		
-		if(intPassed && upperPassed == true) {
+		if(intPassed == true && upperPassed == true && 
+				lowerPassed == true && spacePassed == true) {
 			return true;
 		}
 		return false;
@@ -80,6 +91,7 @@ public class Password {
 		return false;
 	}
 	
+	
 	/** Checks if password fulfills lower case letter check.
 	 * 
 	 * @param s the character to check if it is lower case or not.
@@ -87,6 +99,20 @@ public class Password {
 	 */
 	public boolean checkLower(char s) {
 		if(Character.isLowerCase(s)) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/** Checks if there is a space.
+	 *  If password contains a space returns true, otherwise returns false.
+	 * 
+	 * @param s character to check if it is a space
+	 * @return boolean true or false depending on whether the password contains a space.
+	 */
+	public boolean checkSpace(char s) {
+		if(s == ' ') {
 			return true;
 		}
 		return false;
@@ -105,4 +131,5 @@ public class Password {
 		}
 
 	}
+
 }
