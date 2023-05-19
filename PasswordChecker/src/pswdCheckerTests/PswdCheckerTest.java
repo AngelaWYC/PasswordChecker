@@ -14,6 +14,8 @@ import pswdChecker.Password;
  *
  * References used:
  * https://www.baeldung.com/junit-before-beforeclass-beforeeach-beforeall
+ * https://www.informit.com/articles/article.aspx?p=30241&seqNum=3
+ * https://stackoverflow.com/questions/52126561/how-do-i-use-the-characters-equals-method-in-java
  * 
  */
 class PswdCheckerTest {
@@ -24,7 +26,6 @@ class PswdCheckerTest {
 		assertEquals(pwd1.getIntPassed(), true, "Password contains an integer");
 		assertEquals(pwd1.checkAll(), "Invalid password, try again");
 	}
-	
 	
 	@Test
 	void testUppercase() {
@@ -44,6 +45,15 @@ class PswdCheckerTest {
 	void testNoSpace() {
 		Password pwd5 = new Password("hello there");
 		assertEquals(pwd5.getSpacePassed(), false, "Test should not pass as contains space");
+	}
+	
+	@Test
+	void testSymbol() {
+		Password pwd6 = new Password("pass/word");
+		assertEquals(pwd6.checkSymbol('/'), true, "Should be that true that / is an illegal character");
+		assertEquals(pwd6.checkSymbol('"'), true, "Should be true that \" is an illegal character");
+		assertEquals(pwd6.checkSymbol('\''), true, "Should be true that ' is an illegal character");
+		assertEquals(pwd6.getSymbolPassed(), false, "Test should not pass as contains illegal symbol /");
 	}
 	
 	@Test

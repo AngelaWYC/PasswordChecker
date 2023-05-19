@@ -20,11 +20,13 @@ public class Password {
 	private boolean upperPassed = false;
 	private boolean lowerPassed = false;
 	private boolean spacePassed = true;
+	private boolean symbolPassed = true;
 	
 	public boolean getIntPassed() {return this.intPassed;}
 	public boolean getUpperPassed() {return this.upperPassed;}
 	public boolean getLowerPassed() {return this.lowerPassed;}
 	public boolean getSpacePassed() {return this.spacePassed;}
+	public boolean getSymbolPassed() {return this.symbolPassed;}
 	
 	/** Password constructor which accepts a string.
 	 * 
@@ -50,12 +52,10 @@ public class Password {
 			if(checkInt(c) == true) {this.intPassed = true;}
 			if(checkUpper(c) == true) {this.upperPassed = true;}
 			if(checkLower(c) == true) {this.lowerPassed = true;}
+			if(checkSpace(c) == true) {this.spacePassed = false;}
+			if(checkSymbol(c) == true) {this.symbolPassed = false;}
 			
-			if(checkSpace(c) == false) {
-				continue;
-			} else if (checkSpace(c) == true) {
-				this.spacePassed = false;
-			}
+
 		}
 		
 		if(intPassed == true && upperPassed == true && 
@@ -116,6 +116,14 @@ public class Password {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean checkSymbol(char s) {
+		if(s == '/' || s == '"' || s == '\'') {
+			return true;
+		}else {
+			return false;
+		}
 	}
 	
 	
