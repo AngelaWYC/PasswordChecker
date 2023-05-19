@@ -57,6 +57,14 @@ class PswdCheckerTest {
 	}
 	
 	@Test
+	void testLength() {
+		Password pwd7 = new Password("pass");
+		Password pwd8 = new Password("Password123");
+		assertEquals(pwd7.getLengthPassed(), false, "Password length less than intended eight characters");
+		assertEquals(pwd8.getLengthPassed(), true, "Password exeeds character limit eight and passes");
+	}
+	
+	@Test
 	void testAll() {
 		Password pwd3 = new Password("HEllo123");
 		assertEquals(pwd3.checkAll(), "Password valid");

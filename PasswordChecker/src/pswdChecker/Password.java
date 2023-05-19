@@ -11,22 +11,26 @@ package pswdChecker;
  * https://stackoverflow.com/questions/4388546/how-to-determine-whether-a-string-contains-an-integer
  * https://junit.org/junit4/javadoc/4.8/org/junit/Assert.html#:~:text=assertEquals,-public%20static%20void&text=expected%2C%20Object%20actual)-,Asserts%20that%20two%20objects%20are%20equal.,null%20%2C%20they%20are%20considered%20equal.
  * https://www.techrepublic.com/videos/how-to-push-a-new-project-to-github/
- *
+ * https://stackoverflow.com/questions/52126561/how-do-i-use-the-characters-equals-method-in-java
+ * https://www.informit.com/articles/article.aspx?p=30241&seqNum=3
  */
 public class Password {
 	private String pswd;
+	private int minLength = 8;
 	
 	private boolean intPassed = false;
 	private boolean upperPassed = false;
 	private boolean lowerPassed = false;
 	private boolean spacePassed = true;
 	private boolean symbolPassed = true;
+	private boolean lengthPassed = false;
 	
 	public boolean getIntPassed() {return this.intPassed;}
 	public boolean getUpperPassed() {return this.upperPassed;}
 	public boolean getLowerPassed() {return this.lowerPassed;}
 	public boolean getSpacePassed() {return this.spacePassed;}
 	public boolean getSymbolPassed() {return this.symbolPassed;}
+	public boolean getLengthPassed() {return this.lengthPassed;}
 	
 	/** Password constructor which accepts a string.
 	 * 
@@ -54,12 +58,14 @@ public class Password {
 			if(checkLower(c) == true) {this.lowerPassed = true;}
 			if(checkSpace(c) == true) {this.spacePassed = false;}
 			if(checkSymbol(c) == true) {this.symbolPassed = false;}
+			if(checkLength() == true) {this.lengthPassed = true;}
 			
 
 		}
 		
 		if(intPassed == true && upperPassed == true && 
-				lowerPassed == true && spacePassed == true) {
+				lowerPassed == true && spacePassed == true &&
+				symbolPassed == true && lengthPassed == true) {
 			return true;
 		}
 		return false;
@@ -114,14 +120,34 @@ public class Password {
 	public boolean checkSpace(char s) {
 		if(s == ' ') {
 			return true;
+		} else {
+			return false;
 		}
-		return false;
 	}
 	
+	
+	/** Checks if there is a special character.
+	 * 
+	 * @param s character s to check if it is a symbol ('"/).
+	 * @return true if symbol was found, otherwise returns false.
+	 */
 	public boolean checkSymbol(char s) {
 		if(s == '/' || s == '"' || s == '\'') {
 			return true;
 		}else {
+			return false;
+		}
+	}
+	
+	
+	/** Checks if the length fulfills a min number of characters.
+	 * 
+	 * @return true if criteria met (min characters met) or false if password not long enough.
+	 */
+	public boolean checkLength() {
+		if(this.pswd.length() >= this.minLength) {
+			return true;
+		} else {
 			return false;
 		}
 	}
