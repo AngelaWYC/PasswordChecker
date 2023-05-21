@@ -1,5 +1,7 @@
 package pswdChecker;
 
+import java.util.ArrayList;
+
 /** This defines a password.
  *  The checks are done automatically upon creation as the constructor calls checkAll to run all checks.
  * 
@@ -17,6 +19,7 @@ package pswdChecker;
 public class Password {
 	private String pswd;
 	private int minLength = 8;
+	private boolean allPassed = false;
 	
 	private boolean intPassed = false;
 	private boolean upperPassed = false;
@@ -31,6 +34,7 @@ public class Password {
 	public boolean getSpacePassed() {return this.spacePassed;}
 	public boolean getSymbolPassed() {return this.symbolPassed;}
 	public boolean getLengthPassed() {return this.lengthPassed;}
+	public boolean getAllPassed() {return this.allPassed;}
 	
 	/** Password constructor which accepts a string.
 	 * 
@@ -38,6 +42,7 @@ public class Password {
 	 */
 	public Password(String password) {
 		this.pswd = password;
+
 		checkAll();
 	}
 	
@@ -66,6 +71,7 @@ public class Password {
 		if(intPassed == true && upperPassed == true && 
 				lowerPassed == true && spacePassed == true &&
 				symbolPassed == true && lengthPassed == true) {
+			this.allPassed = true;
 			return true;
 		}
 		return false;
@@ -158,6 +164,8 @@ public class Password {
 	 * @return string "Password valid" or "Invalid password" depending on if checks passed/failed.
 	 */
 	public String checkAll() {
+		if(this.pswd == null) {return "Invalid password, try again";}
+		
 		if(iterate() == true) {
 			return "Password valid";
 		} else {

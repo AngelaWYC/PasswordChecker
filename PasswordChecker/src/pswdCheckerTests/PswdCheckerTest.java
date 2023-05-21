@@ -3,7 +3,6 @@ package pswdCheckerTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import pswdChecker.Password;
@@ -64,10 +63,21 @@ class PswdCheckerTest {
 		assertEquals(pwd8.getLengthPassed(), true, "Password exeeds character limit eight and passes");
 	}
 	
+	
 	@Test
 	void testAll() {
 		Password pwd3 = new Password("HEllo123");
 		assertEquals(pwd3.checkAll(), "Password valid");
+	}
+	
+	@Test
+	void testAdditional() {
+		Password pwd10 = new Password("albjnIL09");
+		assertEquals(pwd10.checkAll(), "Password valid");
+		
+		Password pwd11 = new Password("jjnaskpk");
+		assertEquals(pwd11.checkAll(), "Invalid password, try again");
+		
 	}
 	
 
