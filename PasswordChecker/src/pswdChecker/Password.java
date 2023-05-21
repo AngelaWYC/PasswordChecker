@@ -1,6 +1,7 @@
 package pswdChecker;
 
 import java.util.ArrayList;
+import static org.junit.Assert.assertArrayEquals;
 
 /** This defines a password.
  *  The checks are done automatically upon creation as the constructor calls checkAll to run all checks.
@@ -15,6 +16,11 @@ import java.util.ArrayList;
  * https://www.techrepublic.com/videos/how-to-push-a-new-project-to-github/
  * https://stackoverflow.com/questions/52126561/how-do-i-use-the-characters-equals-method-in-java
  * https://www.informit.com/articles/article.aspx?p=30241&seqNum=3
+ * https://stackoverflow.com/questions/3867151/possible-to-return-a-string-array
+ * https://stackoverflow.com/questions/14098032/add-string-to-string-array
+ * https://stackoverflow.com/questions/15456910/arraylist-equality-junit-testing
+ * https://www.java67.com/2015/10/how-to-declare-arraylist-with-values-in-java.html
+ * https://www.baeldung.com/junit-before-beforeclass-beforeeach-beforeall
  */
 public class Password {
 	private String pswd;
@@ -156,6 +162,24 @@ public class Password {
 		} else {
 			return false;
 		}
+	}
+	
+	/** Returns an array of messages depending on which check failed.
+	 *  This is achieved by the program looking at the private booleans altered in the different check methods.
+	 * 
+	 * @return Array of Strings as messages informing the user which check failed.
+	 */
+	public ArrayList<String> returnMessage() {
+		ArrayList<String> msg = new ArrayList<String>();
+		
+		if(this.intPassed == false) {msg.add("Password does not contain an integer");}
+		if(this.upperPassed == false) {msg.add("Password does not contain a capital letter");}
+		if(this.lowerPassed == false) {msg.add("Password does not contain a decapitalised letter");}
+		if(this.spacePassed == false) {msg.add("Password contains spaces");}
+		if(this.symbolPassed == false) {msg.add("Password contains illegal characters \" ' or /");}
+		if(this.lengthPassed == false) {msg.add("Password is less than " +this.minLength+ " characters");}
+			
+		return msg;
 	}
 	
 	

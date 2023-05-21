@@ -3,6 +3,9 @@ package pswdCheckerTests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import org.junit.jupiter.api.Test;
 
 import pswdChecker.Password;
@@ -12,10 +15,18 @@ import pswdChecker.Password;
  * @author Angela
  *
  * References used:
- * https://www.baeldung.com/junit-before-beforeclass-beforeeach-beforeall
- * https://www.informit.com/articles/article.aspx?p=30241&seqNum=3
+ * https://www.w3schools.com/java/java_classes.asp
+ * https://stackoverflow.com/questions/8894971/fix-eclipse-project-setup
+ * https://stackoverflow.com/questions/4388546/how-to-determine-whether-a-string-contains-an-integer
+ * https://junit.org/junit4/javadoc/4.8/org/junit/Assert.html#:~:text=assertEquals,-public%20static%20void&text=expected%2C%20Object%20actual)-,Asserts%20that%20two%20objects%20are%20equal.,null%20%2C%20they%20are%20considered%20equal.
+ * https://www.techrepublic.com/videos/how-to-push-a-new-project-to-github/
  * https://stackoverflow.com/questions/52126561/how-do-i-use-the-characters-equals-method-in-java
- * 
+ * https://www.informit.com/articles/article.aspx?p=30241&seqNum=3
+ * https://stackoverflow.com/questions/3867151/possible-to-return-a-string-array
+ * https://stackoverflow.com/questions/14098032/add-string-to-string-array
+ * https://stackoverflow.com/questions/15456910/arraylist-equality-junit-testing
+ * https://www.java67.com/2015/10/how-to-declare-arraylist-with-values-in-java.html
+ * https://www.baeldung.com/junit-before-beforeclass-beforeeach-beforeall
  */
 class PswdCheckerTest {
 
@@ -63,6 +74,21 @@ class PswdCheckerTest {
 		assertEquals(pwd8.getLengthPassed(), true, "Password exeeds character limit eight and passes");
 	}
 	
+	@Test
+	void testMessage() {
+		Password pwd9 = new Password("Pswd");
+		ArrayList<String> pwd9_msg1 = new ArrayList<String>(Arrays.asList("Password does not contain an integer", "Password is less than 8 characters"));
+		ArrayList<String> pwd9_msg2 = pwd9.returnMessage();
+		assertArrayEquals(pwd9_msg1.toArray(), pwd9_msg2.toArray());
+		
+		
+		
+		Password pwd10 = new Password("pass /word");
+		ArrayList<String> pwd10_msg1 = new ArrayList<String>(Arrays.asList("Password does not contain an integer", "Password does not contain a capital letter", 
+				"Password contains spaces", "Password contains illegal characters \" ' or /"));
+		ArrayList<String> pwd10_msg2 = pwd10.returnMessage();
+		assertArrayEquals(pwd10_msg1.toArray(), pwd10_msg2.toArray());
+	}
 	
 	@Test
 	void testAll() {
