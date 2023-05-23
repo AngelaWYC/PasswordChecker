@@ -32,7 +32,6 @@ import static org.junit.Assert.assertArrayEquals;
 public class Password {
   private String pswd;
   private int minLength = 8;
-  private boolean allPassed = false;
 
   private boolean intPassed = false;
   private boolean upperPassed = false;
@@ -65,12 +64,9 @@ public class Password {
     return this.lengthPassed;
   }
 
-  public boolean getAllPassed() {
-    return this.allPassed;
-  }
-
   /**
-   * Password constructor which accepts a string.
+   * Password constructor which accepts a string. Calls checkAll which actually runs the checks,
+   * this is so that upon object creation, checks are automatically run.
    * 
    * @param password the string of which checks are run on.
    */
@@ -117,7 +113,6 @@ public class Password {
 
     if (intPassed == true && upperPassed == true && lowerPassed == true && spacePassed == true
         && symbolPassed == true && lengthPassed == true) {
-      this.allPassed = true;
       return true;
     }
     return false;

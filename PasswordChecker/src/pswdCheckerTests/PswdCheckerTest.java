@@ -115,7 +115,17 @@ class PswdCheckerTest {
 
     Password pwd11 = new Password("jjnaskpk");
     assertEquals(pwd11.checkAll(), "Invalid password, try again");
+  }
 
+  @Test
+  void testFinal() {
+    Password pwd12 = new Password("Asd 123");
+    assertEquals(pwd12.checkAll(), "Invalid password, try again");
+
+    ArrayList<String> pwd12_msg1 = new ArrayList<String>(
+        Arrays.asList("Password contains spaces", "Password is less than 8 characters"));
+    ArrayList<String> pwd12_msg2 = pwd12.returnMessage();
+    assertArrayEquals(pwd12_msg1.toArray(), pwd12_msg2.toArray());
   }
 
 
