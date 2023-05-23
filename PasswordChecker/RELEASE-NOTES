@@ -1,0 +1,11 @@
+# Release Notes for release-1
+
+All performed tests and updates will be done here
+
+
+## 2023-05-23
+- Discarded boolean allPassed as it was not being used
+- Mended some Javadoc comments to be more in depth
+- Corrected some of the UML that lacked private variables
+- Performance testing: created in depth tests to test the password checker
+- System testing: calculator has been tested on the linux OS and works as intended

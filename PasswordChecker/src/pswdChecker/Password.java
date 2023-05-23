@@ -9,7 +9,10 @@ import static org.junit.Assert.assertArrayEquals;
  * 
  * @author Angela
  * 
- *         References used: https://www.w3schools.com/java/java_classes.asp
+ *         https://www.w3schools.com/java/java_classes.asp
+ *         https://stackoverflow.com/questions/1911109/how-do-i-clone-a-specific-git-branch
+ *         https://stackoverflow.com/questions/5601931/how-do-i-safely-merge-a-git-branch-into-master
+ *         https://opensource.com/article/21/4/cherry-picking-git#:~:text=What%20is%20cherry%2Dpick%3F,from%20a%20branch%20are%20combined.
  *         https://stackoverflow.com/questions/8894971/fix-eclipse-project-setup
  *         https://stackoverflow.com/questions/4388546/how-to-determine-whether-a-string-contains-an-integer
  *         https://junit.org/junit4/javadoc/4.8/org/junit/Assert.html#:~:text=assertEquals,-public%20static%20void&text=expected%2C%20Object%20actual)-,Asserts%20that%20two%20objects%20are%20equal.,null%20%2C%20they%20are%20considered%20equal.
@@ -29,7 +32,6 @@ import static org.junit.Assert.assertArrayEquals;
 public class Password {
   private String pswd;
   private int minLength = 8;
-  private boolean allPassed = false;
 
   private boolean intPassed = false;
   private boolean upperPassed = false;
@@ -62,12 +64,9 @@ public class Password {
     return this.lengthPassed;
   }
 
-  public boolean getAllPassed() {
-    return this.allPassed;
-  }
-
   /**
-   * Password constructor which accepts a string.
+   * Password constructor which accepts a string. Calls checkAll which actually runs the checks,
+   * this is so that upon object creation, checks are automatically run.
    * 
    * @param password the string of which checks are run on.
    */
@@ -114,7 +113,6 @@ public class Password {
 
     if (intPassed == true && upperPassed == true && lowerPassed == true && spacePassed == true
         && symbolPassed == true && lengthPassed == true) {
-      this.allPassed = true;
       return true;
     }
     return false;
